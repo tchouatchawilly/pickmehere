@@ -1,0 +1,15 @@
+body { padding-top: 70px; }
+.panel .panel-heading{
+  background: #4D525B;
+  color: #fff;
+}
+.panel .media-list{
+
+border-bottom: 1px solid silver;
+background: #fff;
+}
+.panel .media-list:hover{
+
+background:#F0F0F0;
+
+}
