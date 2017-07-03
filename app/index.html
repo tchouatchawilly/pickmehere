@@ -58,17 +58,17 @@
             <div class="form-group">
               <label for="filter">Job Position</label>
               <select class="form-control selectpicker" ng-model="filter.jobposition" ng-change="changeHandler()">
-                                        <option value="Java Developer" selected>Java Developer</option>
+                                        <option value="Java Developer">Java Developer</option>
                                         <option value=".Net Developer">.Net Developer</option>
                                         <option value="Salesforce Developer">Salesforce Developer</option>
                                         <option value="Mobile Developer">Mobile Developer</option>
                                         <option value="Frontend Developer">Frontend Developer</option>
-                                        <option value="SCRUM Master">SCRUM Master</option>
-                                        <option value="Business Developer">Business Developer</option>
+                                        <option value="SCRUM+Master">SCRUM Master</option>
+                                        <option value="Business+Developer">Business Developer</option>
                                         <option value="Solution Architect">Solution Architect</option>
-                                        <option value="Team Lead Application Developer">Team Lead Application Developer</option>
-                                        <option value="Application Developer Associate Manager">Application Developer Associate Manager</option>
-                                        <option value="Application Developer Senior Manager">Application Developer Senior Manager</option>
+                                        <option value="Team+Lead + Application+Developer">Team Lead Application Developer</option>
+                                        <option value="Application+Developer+Associate+Manager">Application Developer Associate Manager</option>
+                                        <option value="Application+Developer+Senior+Manager">Application Developer Senior Manager</option>
               </select>
             </div>
           </div>
@@ -463,73 +463,24 @@
       <div class="panel-body">
 
         <!--First resume item-->
-        <ul class="media-list">
+        <ul class="media-list" ng-repeat="resume in resumes">
           <li class="media">
             <div class="media-left">
               <a href="#">
-        <img class="media-object" src="img/iris.jpg" width="80px" height="80px" alt="Software Engineer">
+        <img ng-if="resume.pagemap.cse_image!='undefined' && resume.displayLink!='www.indeed.com'" class="media-object" src="{{resume.pagemap.cse_image[0].src}}" width="80px" height="80px" alt="Software Engineer">
+        <img ng-if="resume.displayLink=='www.indeed.com'" class="media-object" src="img/nobody.jpg" width="80px" height="80px" alt="Software Engineer">
       </a>
             </div>
             <div class="media-body">
-              <a href="">
-                <h4 class="media-heading">Senior Software Engineer</h4>
+              <a href="{{resume.link}}" target="_blank">
+                <h4 class="media-heading">{{resume.pagemap.person[0].role}}</h4>
               </a>
-              <span class="label label-primary">Linkedin</span>
-              <span class="label label-success">Mauritius</span>
-              <span class="label label-info">Salesforce</span>
-              <span class="label label-warning">available</span>
-              <p style="text-align: justify">
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-                in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                congue felis in faucibus.</p>
-            </div>
-          </li>
-        </ul>
-
-        <!--second resume item-->
-        <ul class="media-list">
-          <li class="media">
-            <div class="media-left">
-              <a href="#">
-        <img class="media-object" src="img/jhon.jpg" width="80px" height="80px" alt="Software Engineer">
-      </a>
-            </div>
-            <div class="media-body">
-              <a href="">
-                <h4 class="media-heading">Java Developer</h4>
-              </a>
-              <span class="label label-primary">Indeed</span>
-              <span class="label label-success">France</span>
-              <span class="label label-info">Java</span>
-              <span class="label label-warning">available</span>
-              <p style="text-align: justify">
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-                in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                congue felis in faucibus.</p>
-            </div>
-          </li>
-        </ul>
-
-        <!--Third resume item-->
-        <ul class="media-list">
-          <li class="media">
-            <div class="media-left">
-              <a href="#">
-        <img class="media-object" src="img/lucia.jpg" width="80px" height="80px" alt="Software Engineer">
-      </a>
-            </div>
-            <div class="media-body">
-              <a href="">
-                <h4 class="media-heading">Software Engineer</h4>
-              </a>
-              <span class="label label-primary">Monster</span>
-              <span class="label label-success">Canada</span>
-              <span class="label label-info">.Net</span>
-              <span class="label label-warning">available</span>
-              <p style="text-align: justify">
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum
-                in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-                congue felis in faucibus.</p>
+              <span class="label label-primary">{{resume.displayLink}}</span>
+              <span class="label label-success">{{resume.pagemap.postaladdress[0].addresslocality
+}}</span>
+              <span class="label label-info">{{resume.pagemap.organization[0].name}}</span>
+              <span class="label label-warning">{{resume.pagemap.educationalorganization[0].name}}</span>
+              <p style="text-align: justify" ng-bind-html="resume.htmlSnippet"> </p>
             </div>
           </li>
         </ul>
@@ -551,7 +502,6 @@
         </nav>
       </div>
     </div>
-
   </div>
   <!-- /.container -->
   <!-- Bootstrap core JavaScript
@@ -562,6 +512,7 @@
   <script src="bower_components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
   <script src="bower_components/angular/angular.min.js"></script>
   <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="/bower_components/angular-sanitize/angular-sanitize.min.js"></script>3
   <script src="app.js"></script>
   <script type="text/JavaScript">
     $(document).ready(function() { $('.selectpicker').selectpicker(); });
